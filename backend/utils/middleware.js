@@ -8,6 +8,17 @@ const requestLogger = (req, res, next) => {
   next()
 }
 
+const cors = (origin) => {
+  return (req, res, next) => {
+    res.header('Access-Control-Allow-Origin', origin)
+    res.header(
+      'Access-Control-Allow-Headers',
+      'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+    )
+    next()
+  }
+}
+
 const unknownEndpoint = (req, res) => {
   res.status(404).send({ error: 'unknown endpoint' })
 }
@@ -28,17 +39,6 @@ const errorHandler = (err, req, res, next) => {
   }
 
   next(err)
-}
-
-const cors = (origin) => {
-  return (req, res, next) => {
-    res.header('Access-Control-Allow-Origin', origin)
-    res.header(
-      'Access-Control-Allow-Headers',
-      'Origin, X-Requested-With, Content-Type, Accept, Authorization'
-    )
-    next()
-  }
 }
 
 module.exports = {
