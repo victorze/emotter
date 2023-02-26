@@ -23,6 +23,7 @@ app.use(express.static('dist'))
 app.use(express.json())
 app.use(middleware.requestLogger)
 
+app.use('/api', middleware.cors(config.ORIGIN))
 app.use('/api', routes)
 
 app.use(middleware.unknownEndpoint)
