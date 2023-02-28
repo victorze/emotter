@@ -1,6 +1,11 @@
-const logger = require('./logger')
+import { NextFunction, Request, Response } from 'express'
+import { logger } from './index'
 
-const requestLogger = (req, res, next) => {
+export const requestLogger = (
+  req: Request,
+  _res: Response,
+  next: NextFunction
+) => {
   logger.info('Method:', req.method)
   logger.info('Path:  ', req.path)
   logger.info('Body:  ', req.body)
@@ -8,8 +13,8 @@ const requestLogger = (req, res, next) => {
   next()
 }
 
-const cors = (origin) => {
-  return (req, res, next) => {
+export const cors = (origin: string | undefined) => {
+  return (_req: Request, res: Response, next: NextFunction) => {
     res.header('Access-Control-Allow-Origin', origin)
     res.header(
       'Access-Control-Allow-Headers',
@@ -19,11 +24,16 @@ const cors = (origin) => {
   }
 }
 
-const unknownEndpoint = (req, res) => {
+export const unknownEndpoint = (_req: Request, res: Response) => {
   res.status(404).send({ error: 'unknown endpoint' })
 }
 
-const errorHandler = (err, req, res, next) => {
+export const errorHandler = (
+  err: Error,
+  _req: Request,
+  res: Response,
+  next: CallableFunction
+) => {
   logger.error(err.message)
 
   if (err.name === 'CastError') {
@@ -38,12 +48,5 @@ const errorHandler = (err, req, res, next) => {
     })
   }
 
-  next(err)
-}
-
-module.exports = {
-  requestLogger,
-  unknownEndpoint,
-  errorHandler,
-  cors,
+  return next(err)
 }
