@@ -1,17 +1,17 @@
-import { useEffect } from 'react'
+import { Header } from '@/components/header'
+import { Main } from '@/components/main'
+import { NewEmot } from '@/components/new-emot'
+import { Sidebar } from '@/components/sidebar'
 
 const Home = () => {
-  useEffect(() => {
-    fetch('http://localhost:3000/api/ping')
-      .then((res) => res.json())
-      .then((data) => console.log(data))
-  })
-
   return (
-    <button className="bg-sky-700 px-4 py-2 text-white hover:bg-sky-800 sm:px-8 sm:py-3">
-      Button
-    </button>
+    <div className="flex h-screen justify-center bg-slate-800 pt-4">
+      <Header />
+      <Main />
+      <Sidebar />
+    </div>
   )
+  return <NewEmot />
 }
 
 export default Home
