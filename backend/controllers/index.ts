@@ -1,1 +1,2 @@
-export * as pingController from './pingController'
+export * as pingController from './ping.controller'
+export * as emotController from './emot.controller'

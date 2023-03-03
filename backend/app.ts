@@ -1,6 +1,17 @@
 import { config, middleware } from './utils'
+import 'reflect-metadata'
 import express from 'express'
 import routes from './routes'
+import { dataSource } from './db/data.source'
+
+dataSource
+  .initialize()
+  .then(() => {
+    console.log('Data Source has been initialized!')
+  })
+  .catch((err) => {
+    console.error('Error during Data Source initialization:', err)
+  })
 
 export const app = express()
 

@@ -7,9 +7,10 @@ interface Props {
 export const EmotForm = ({ storeEmot }: Props) => {
   const [content, setContent] = useState('')
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    storeEmot(content)
+    const data = await storeEmot(content)
+    console.log({ data })
     setContent('')
   }
 
